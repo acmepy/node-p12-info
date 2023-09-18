@@ -49,7 +49,8 @@ export const readRaw = (cert: Buffer, pass: string) : AnyObject => {
 export default function p12info(cert: Buffer, pass: string) : InfoType {
   const data = readRaw(cert, pass)
   return {
-    friendlyName: data.attributes.friendlyName[0],
+    //friendlyName: data.attributes.friendlyName[0],
+    friendlyName: data.attributes.friendlyName?.[0],
 
     subject: data.cert.subject?.attributes.reduce((a: AnyObject, r: Attribute) => {
       r.name && (a[r.name] = Buffer.from(r.value, 'latin1').toString())
